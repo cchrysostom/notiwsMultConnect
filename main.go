@@ -27,6 +27,7 @@ func main() {
 	for i := 0; i < connectionCount; i++ {
 		ws, err := websocket.Dial(url, "", origin)
 		if err != nil {
+			log.Printf("Failed making connection, %d.", i)
 			log.Fatal(err)
 		}
 		connects[i] = ws
@@ -50,7 +51,7 @@ func receive(ws *websocket.Conn, recvId int) {
 	var msg string
 	for {
 		if err := websocket.Message.Receive(ws, &msg); err != nil {
-			log.Fatal(err)
+			log.Fatal(fmt.Sprintf("Error on recvId, %d", recvId), err)
 		}
 		fmt.Printf("%d Received: %s.\n", recvId, msg)
 	}
