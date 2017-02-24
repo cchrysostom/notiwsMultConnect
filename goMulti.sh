@@ -9,6 +9,6 @@ COUNT=0
 while [ $COUNT -lt $LOOPS ]
   do
     echo Iteration, $COUNT.
-    ./multi
+    ./multi 50
     COUNT=$[$COUNT + 1]
 done
