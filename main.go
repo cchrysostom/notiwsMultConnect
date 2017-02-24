@@ -66,7 +66,7 @@ func main() {
 		}
 		connects[i] = ws
 
-		go receive(ws, i)
+		go receive(ws, i, client)
 		go sendPing(ws, i)
 	}
 
@@ -81,13 +81,13 @@ func main() {
 
 }
 
-func receive(ws *websocket.Conn, recvId int) {
+func receive(ws *websocket.Conn, recvId int, client Client) {
 	var msg string
 	for {
 		if err := websocket.Message.Receive(ws, &msg); err != nil {
 			log.Fatal(fmt.Sprintf("Error on recvId, %d", recvId), err)
 		}
-		fmt.Printf("%d Received: %s.\n", recvId, msg)
+		fmt.Printf("%d, IdmGuid: %s, Received: %s.\n", recvId, client.IdmGuid, msg)
 	}
 
 	closeErr := ws.Close()
